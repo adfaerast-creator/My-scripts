@@ -5,112 +5,105 @@ local screenGui = Instance.new("ScreenGui", p:WaitForChild("PlayerGui"))
 screenGui.Name = "ThomasMenu"
 screenGui.ResetOnSpawn = false
 
--- زر التفعيل الدائري (اللون السمائي الغامق)
 local toggleBtn = Instance.new("ImageButton", screenGui)
 toggleBtn.Size = UDim2.new(0, 50, 0, 50)
 toggleBtn.Position = UDim2.new(0.05, 0, 0.5, -25)
-toggleBtn.BackgroundColor3 = Color3.fromRGB(0, 105, 148) -- اللون السمائي الغامق
-toggleBtn.Image = "rbxassetid://0" -- [ضع رقم الـ ID الخاص بصورتك هنا بدل الصفر]
+toggleBtn.BackgroundColor3 = Color3.fromRGB(0, 105, 148)
 toggleBtn.Active = true
 toggleBtn.Draggable = true
 local corner = Instance.new("UICorner", toggleBtn)
 corner.CornerRadius = UDim.new(1, 0)
 
--- القائمة الرئيسية
 local frame = Instance.new("Frame", screenGui)
 frame.Size = UDim2.new(0, 200, 0, 380)
 frame.Position = UDim2.new(0.5, -100, 0.2, 0)
 frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-frame.Visible = false -- تبدأ مخفية
+frame.Visible = false
 frame.Active = true
 frame.Draggable = true
 
--- منطق إظهار وإخفاء القائمة
-toggleBtn.MouseButton1Click:Connect(function()
-    frame.Visible = not frame.Visible
-end)
-
--- العنوان
 local title = Instance.new("TextLabel", frame)
 title.Size = UDim2.new(1, 0, 0, 45)
-title.Text = "توماس العنيف"
+title.Text = "THOMAS"
 title.Font = Enum.Font.SourceSansBold
 title.TextSize = 26
 title.TextColor3 = Color3.new(1, 1, 1)
 title.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+title.Parent = frame
 
--- دالة إنشاء العناوين
+local scroll = Instance.new("ScrollingFrame", frame)
+scroll.Size = UDim2.new(1, 0, 1, -45)
+scroll.Position = UDim2.new(0, 0, 0, 45)
+scroll.BackgroundTransparency = 1
+scroll.ScrollBarThickness = 5
+scroll.CanvasSize = UDim2.new(0, 0, 2, 0)
+
+toggleBtn.MouseButton1Click:Connect(function() frame.Visible = not frame.Visible end)
+
 local function createLabel(text, pos)
-    local lbl = Instance.new("TextLabel", frame)
+    local lbl = Instance.new("TextLabel", scroll)
     lbl.Size = UDim2.new(0.9, 0, 0, 20)
-    lbl.Position = UDim2.new(0.05, 0, pos, 0)
-    lbl.Text = text
-    lbl.TextColor3 = Color3.new(1, 1, 1)
-    lbl.BackgroundTransparency = 1
-    lbl.Font = Enum.Font.SourceSans
-    lbl.TextSize = 14
-    lbl.TextXAlignment = Enum.TextXAlignment.Left
+    lbl.Position = UDim2.new(0.05, 0, 0, pos)
+    lbl.Text = text; lbl.TextColor3 = Color3.new(1, 1, 1); lbl.BackgroundTransparency = 1
     return lbl
 end
 
-local offColor, onColor = Color3.fromRGB(150, 0, 0), Color3.fromRGB(0, 150, 0)
+local function createButton(text, pos)
+    local btn = Instance.new("TextButton", scroll)
+    btn.Size = UDim2.new(0.9, 0, 0, 35)
+    btn.Position = UDim2.new(0.05, 0, 0, pos)
+    btn.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
+    btn.Text = text; btn.TextColor3 = Color3.new(1, 1, 1)
+    return btn
+end
 
--- المشي
-createLabel("تفعيل المشي:", 0.13)
-local walkBtn = Instance.new("TextButton", frame)
-walkBtn.Size = UDim2.new(0.9, 0, 0, 35)
-walkBtn.Position = UDim2.new(0.05, 0, 0.18, 0)
-walkBtn.BackgroundColor3 = offColor
-walkBtn.TextColor3 = Color3.new(1, 1, 1)
-walkBtn.Text = "المشي: مطفأ"
-createLabel("سرعة المشي:", 0.28)
-local wsBox = Instance.new("TextBox", frame)
-wsBox.Size = UDim2.new(0.9, 0, 0, 30)
-wsBox.Position = UDim2.new(0.05, 0, 0.33, 0)
-wsBox.Text = "16"
+local function createBox(text, pos)
+    local box = Instance.new("TextBox", scroll)
+    box.Size = UDim2.new(0.9, 0, 0, 30)
+    box.Position = UDim2.new(0.05, 0, 0, pos)
+    box.Text = text
+    return box
+end
 
--- الطيران
-createLabel("تفعيل الطيران:", 0.44)
-local flyBtn = Instance.new("TextButton", frame)
-flyBtn.Size = UDim2.new(0.9, 0, 0, 35)
-flyBtn.Position = UDim2.new(0.05, 0, 0.49, 0)
-flyBtn.BackgroundColor3 = offColor
-flyBtn.TextColor3 = Color3.new(1, 1, 1)
-flyBtn.Text = "الطيران: مطفأ"
-createLabel("سرعة الطيران:", 0.59)
-local flyBox = Instance.new("TextBox", frame)
-flyBox.Size = UDim2.new(0.9, 0, 0, 30)
-flyBox.Position = UDim2.new(0.05, 0, 0.64, 0)
-flyBox.Text = "100"
+createLabel("المشي:", 10)
+local walkBtn = createButton("المشي: مطفأ", 35)
+local wsBox = createBox("16", 80)
 
--- الهيكل المخفي
-createLabel("القدرات الخاصة:", 0.75)
-local hbBtn = Instance.new("TextButton", frame)
-hbBtn.Size = UDim2.new(0.9, 0, 0, 40)
-hbBtn.Position = UDim2.new(0.05, 0, 0.80, 0)
-hbBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-hbBtn.TextColor3 = Color3.new(0, 0, 0)
-hbBtn.Text = "الهيكل المخفي (تفعيل)"
+createLabel("الطيران:", 120)
+local flyBtn = createButton("الطيران: مطفأ", 145)
+local flyBox = createBox("100", 190)
 
-local walking, flying, hitbox = false, false, false
+local noclipBtn = createButton("Noclip: مطفأ", 230)
+local espBtn = createButton("ESP: مطفأ", 275)
 
-walkBtn.MouseButton1Click:Connect(function() walking = not walking walkBtn.BackgroundColor3 = walking and onColor or offColor walkBtn.Text = walking and "المشي: يعمل" or "المشي: مطفأ" end)
-flyBtn.MouseButton1Click:Connect(function() flying = not flying flyBtn.BackgroundColor3 = flying and onColor or offColor flyBtn.Text = flying and "الطيران: يعمل" or "الطيران: مطفأ" if not flying then pcall(function() p.Character.HumanoidRootPart:FindFirstChild("FlyVelocity"):Destroy() p.Character.HumanoidRootPart:FindFirstChild("FlyGyro"):Destroy() p.Character.Humanoid.PlatformStand = false end) end end)
-hbBtn.MouseButton1Click:Connect(function() if not hitbox then hitbox = true hbBtn.BackgroundColor3 = onColor hbBtn.Text = "الهيكل المخفي: مفعل" end end)
+local walking, flying, noclip, esp = false, false, false, false
+local onColor, offColor = Color3.fromRGB(0, 150, 0), Color3.fromRGB(150, 0, 0)
 
-run.RenderStepped:Connect(function()
-    local char = p.Character local hum = char and char:FindFirstChild("Humanoid") local root = char and char:FindFirstChild("HumanoidRootPart")
-    if hum then hum.WalkSpeed = walking and (tonumber(wsBox.Text) or 16) or 16 end
-    if flying and root and hum then
-        hum.PlatformStand = true local bv = root:FindFirstChild("FlyVelocity") or Instance.new("BodyVelocity", root) local bg = root:FindFirstChild("FlyGyro") or Instance.new("BodyGyro", root)
-        bv.Name = "FlyVelocity" bg.Name = "FlyGyro" bv.MaxForce = Vector3.new(1/0,1/0,1/0) bg.MaxTorque = Vector3.new(1/0,1/0,1/0) bg.P = 50000
-        local move = hum.MoveDirection local camCF = cam.CFrame
-        if move.Magnitude > 0 then local rel = camCF:VectorToObjectSpace(move) bv.Velocity = ((camCF.LookVector * -rel.Z) + (camCF.RightVector * rel.X)).Unit * (tonumber(flyBox.Text) or 100) else bv.Velocity = Vector3.new(0,0,0) end
-        bg.CFrame = camCF root.RotVelocity = Vector3.new(0,0,0)
+walkBtn.MouseButton1Click:Connect(function() walking = not walking; walkBtn.BackgroundColor3 = walking and onColor or offColor; walkBtn.Text = walking and "المشي: يعمل" or "المشي: مطفأ" end)
+flyBtn.MouseButton1Click:Connect(function() flying = not flying; flyBtn.BackgroundColor3 = flying and onColor or offColor; flyBtn.Text = flying and "الطيران: يعمل" or "الطيران: مطفأ" end)
+noclipBtn.MouseButton1Click:Connect(function() noclip = not noclip; noclipBtn.BackgroundColor3 = noclip and onColor or offColor; noclipBtn.Text = noclip and "Noclip: يعمل" or "Noclip: مطفأ" end)
+espBtn.MouseButton1Click:Connect(function() 
+    esp = not esp; espBtn.BackgroundColor3 = esp and onColor or offColor; espBtn.Text = esp and "ESP: يعمل" or "ESP: مطفأ"
+    for _,v in pairs(game.Players:GetPlayers()) do
+        if v.Character and v.Character:FindFirstChild("Highlight") then v.Character.Highlight:Destroy() end
+        if esp and v ~= p and v.Character then local h = Instance.new("Highlight", v.Character) h.FillColor = Color3.new(1, 0, 0) end
     end
-    if hitbox then for _,v in next, game:GetService('Players'):GetPlayers() do if v ~= p and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then pcall(function()
-        v.Character.HumanoidRootPart.Size = Vector3.new(50,50,50) v.Character.HumanoidRootPart.Transparency = 0.9 v.Character.HumanoidRootPart.BrickColor = BrickColor.new("Really red") v.Character.HumanoidRootPart.Material = "Neon" v.Character.HumanoidRootPart.CanCollide = false
-    end) end end end
 end)
 
-task.spawn(function() while true do local h = tick()%5/5 title.TextColor3 = Color3.fromHSV(h,1,1) task.wait() end end)
+run.RenderStepped:Connect(function()
+    local char = p.Character; local hum = char and char:FindFirstChild("Humanoid"); local root = char and char:FindFirstChild("HumanoidRootPart")
+    if hum then hum.WalkSpeed = walking and (tonumber(wsBox.Text) or 16) or 16 end
+    if noclip and char then for _,v in pairs(char:GetDescendants()) do if v:IsA("BasePart") then v.CanCollide = false end end end
+    
+    if flying and root and hum then
+        hum.PlatformStand = true; local bv = root:FindFirstChild("FlyVelocity") or Instance.new("BodyVelocity", root) local bg = root:FindFirstChild("FlyGyro") or Instance.new("BodyGyro", root)
+        bv.Name = "FlyVelocity"; bg.Name = "FlyGyro"; bv.MaxForce = Vector3.new(1/0,1/0,1/0); bg.MaxTorque = Vector3.new(1/0,1/0,1/0); bg.P = 50000
+        local move = hum.MoveDirection; local camCF = cam.CFrame
+        if move.Magnitude > 0 then local rel = camCF:VectorToObjectSpace(move) bv.Velocity = ((camCF.LookVector * -rel.Z) + (camCF.RightVector * rel.X)).Unit * (tonumber(flyBox.Text) or 100) else bv.Velocity = Vector3.new(0,0,0) end
+        bg.CFrame = camCF; root.RotVelocity = Vector3.new(0,0,0)
+    elseif root and root:FindFirstChild("FlyVelocity") then
+        root.FlyVelocity:Destroy(); root.FlyGyro:Destroy(); hum.PlatformStand = false
+    end
+end)
+
+task.spawn(function() while true do local h = tick()%10/10 title.TextColor3 = Color3.fromHSV(h,1,1) task.wait() end end)
