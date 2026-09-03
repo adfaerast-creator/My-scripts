@@ -65,32 +65,32 @@ local function createBox(text, pos)
     return box
 end
 
-createLabel("المشي 🚶:", 10)
-local walkBtn = createButton("المشي: مطفأ", 35)
+createLabel("ط§ظ„ظ…ط´ظٹ ًںڑ¶:", 10)
+local walkBtn = createButton("ط§ظ„ظ…ط´ظٹ: ظ…ط·ظپط£", 35)
 local wsBox = createBox("16", 80)
 
-createLabel("الطيران ✈️:", 120)
-local flyBtn = createButton("الطيران: مطفأ", 145)
+createLabel("ط§ظ„ط·ظٹط±ط§ظ† âœˆï¸ڈ:", 120)
+local flyBtn = createButton("ط§ظ„ط·ظٹط±ط§ظ†: ظ…ط·ظپط£", 145)
 local flyBox = createBox("100", 190)
 
-local noclipBtn = createButton("Noclip: مطفأ", 230)
-local espBtn = createButton("ESP: مطفأ", 275)
+local noclipBtn = createButton("Noclip: ظ…ط·ظپط£", 230)
+local espBtn = createButton("ESP: ظ…ط·ظپط£", 275)
 
-createLabel("التسلق 🧗:", 320)
-local climbBtn = createButton("تسلق: مطفأ", 345)
+createLabel("ط§ظ„طھط³ظ„ظ‚ ًں§—:", 320)
+local climbBtn = createButton("طھط³ظ„ظ‚: ظ…ط·ظپط£", 345)
 
-createLabel("تحسين الأداء ⚡:", 390)
-local lagBtn = createButton("تقليل اللاك", 415)
+createLabel("طھط­ط³ظٹظ† ط§ظ„ط£ط¯ط§ط، âڑ،:", 390)
+local lagBtn = createButton("طھظ‚ظ„ظٹظ„ ط§ظ„ظ„ط§ظƒ", 415)
 
 local walking, flying, noclip, esp, climbing = false, false, false, false, false
 local climbConnection = nil
 local onColor, offColor = Color3.fromRGB(0, 150, 0), Color3.fromRGB(150, 0, 0)
 
-walkBtn.MouseButton1Click:Connect(function() walking = not walking; walkBtn.BackgroundColor3 = walking and onColor or offColor; walkBtn.Text = walking and "المشي: يعمل" or "المشي: مطفأ" end)
-flyBtn.MouseButton1Click:Connect(function() flying = not flying; flyBtn.BackgroundColor3 = flying and onColor or offColor; flyBtn.Text = flying and "الطيران: يعمل" or "الطيران: مطفأ" end)
-noclipBtn.MouseButton1Click:Connect(function() noclip = not noclip; noclipBtn.BackgroundColor3 = noclip and onColor or offColor; noclipBtn.Text = noclip and "Noclip: يعمل" or "Noclip: مطفأ" end)
+walkBtn.MouseButton1Click:Connect(function() walking = not walking; walkBtn.BackgroundColor3 = walking and onColor or offColor; walkBtn.Text = walking and "ط§ظ„ظ…ط´ظٹ: ظٹط¹ظ…ظ„" or "ط§ظ„ظ…ط´ظٹ: ظ…ط·ظپط£" end)
+flyBtn.MouseButton1Click:Connect(function() flying = not flying; flyBtn.BackgroundColor3 = flying and onColor or offColor; flyBtn.Text = flying and "ط§ظ„ط·ظٹط±ط§ظ†: ظٹط¹ظ…ظ„" or "ط§ظ„ط·ظٹط±ط§ظ†: ظ…ط·ظپط£" end)
+noclipBtn.MouseButton1Click:Connect(function() noclip = not noclip; noclipBtn.BackgroundColor3 = noclip and onColor or offColor; noclipBtn.Text = noclip and "Noclip: ظٹط¹ظ…ظ„" or "Noclip: ظ…ط·ظپط£" end)
 espBtn.MouseButton1Click:Connect(function() 
-    esp = not esp; espBtn.BackgroundColor3 = esp and onColor or offColor; espBtn.Text = esp and "ESP: يعمل" or "ESP: مطفأ"
+    esp = not esp; espBtn.BackgroundColor3 = esp and onColor or offColor; espBtn.Text = esp and "ESP: ظٹط¹ظ…ظ„" or "ESP: ظ…ط·ظپط£"
     for _,v in pairs(game.Players:GetPlayers()) do
         if v.Character and v.Character:FindFirstChild("Highlight") then v.Character.Highlight:Destroy() end
         if esp and v ~= p and v.Character then local h = Instance.new("Highlight", v.Character) h.FillColor = Color3.new(1, 0, 0) end
@@ -100,7 +100,7 @@ end)
 climbBtn.MouseButton1Click:Connect(function()
     climbing = not climbing
     climbBtn.BackgroundColor3 = climbing and onColor or offColor
-    climbBtn.Text = climbing and "تسلق: يعمل" or "تسلق: مطفأ"
+    climbBtn.Text = climbing and "طھط³ظ„ظ‚: ظٹط¹ظ…ظ„" or "طھط³ظ„ظ‚: ظ…ط·ظپط£"
     
     if climbing then
         climbConnection = run.RenderStepped:Connect(function()
@@ -129,7 +129,7 @@ end)
 
 lagBtn.MouseButton1Click:Connect(function()
     lagBtn.BackgroundColor3 = onColor
-    lagBtn.Text = "تم تقليل اللاك ⚡"
+    lagBtn.Text = "طھظ… طھظ‚ظ„ظٹظ„ ط§ظ„ظ„ط§ظƒ âڑ،"
     
     local decalsyeeted = true
     local g = game
@@ -141,7 +141,7 @@ lagBtn.MouseButton1Click:Connect(function()
     t.WaterReflectance = 0
     t.WaterTransparency = 0
     l.GlobalShadows = false
-    l.FogEnd = 9e9
+    l.FogEnd = 9000000000
     l.Brightness = 0
     settings().Rendering.QualityLevel = "Level01"
     for i, v in pairs(g:GetDescendants()) do
@@ -160,7 +160,7 @@ lagBtn.MouseButton1Click:Connect(function()
         elseif v:IsA("MeshPart") then
             v.Material = "Plastic"
             v.Reflectance = 0
-            v.TextureID = 10385902758728957
+            v.TextureID = 10385902758728956
         end
     end
     for i, e in pairs(l:GetChildren()) do
